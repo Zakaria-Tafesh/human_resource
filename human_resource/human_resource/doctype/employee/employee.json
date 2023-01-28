@@ -1,0 +1,110 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:employee_full_name",
+ "creation": "2023-01-28 12:54:00.303773",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "employee_first_name",
+  "employee_last_name",
+  "employee_full_name",
+  "image",
+  "status",
+  "employee_number",
+  "employee_date_of_birth",
+  "employee_date_of_joining",
+  "employee_mobile",
+  "employee_department",
+  "employee_education"
+ ],
+ "fields": [
+  {
+   "fieldname": "employee_first_name",
+   "fieldtype": "Data",
+   "label": "Employee First Name"
+  },
+  {
+   "fieldname": "employee_last_name",
+   "fieldtype": "Data",
+   "label": "Employee Last Name"
+  },
+  {
+   "fieldname": "employee_full_name",
+   "fieldtype": "Data",
+   "label": "Employee Full Name",
+   "unique": 1
+  },
+  {
+   "fieldname": "image",
+   "fieldtype": "Image",
+   "label": "Image"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Active\nInactive\nSuspended\nLeft"
+  },
+  {
+   "fieldname": "employee_number",
+   "fieldtype": "Data",
+   "label": "Employee Number"
+  },
+  {
+   "fieldname": "employee_date_of_birth",
+   "fieldtype": "Date",
+   "label": "Employee Date of Birth"
+  },
+  {
+   "fieldname": "employee_date_of_joining",
+   "fieldtype": "Date",
+   "label": "Employee Date of Joining"
+  },
+  {
+   "fieldname": "employee_mobile",
+   "fieldtype": "Data",
+   "label": "Employee Mobile"
+  },
+  {
+   "fieldname": "employee_department",
+   "fieldtype": "Link",
+   "label": "Employee Department",
+   "options": "Department"
+  },
+  {
+   "fieldname": "employee_education",
+   "fieldtype": "Table",
+   "label": "Employee Education",
+   "options": "Employee Education"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2023-01-28 12:54:29.937043",
+ "modified_by": "Administrator",
+ "module": "Human Resource",
+ "name": "Employee",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "employee_full_name"
+}
