@@ -21,6 +21,7 @@
   "mobile",
   "department",
   "education",
+  "count_employee_education",
   "cv",
   "cv_valuation"
  ],
@@ -108,12 +109,18 @@
    "fieldtype": "Data",
    "label": "CV Valuation",
    "read_only": 1
+  },
+  {
+   "fieldname": "count_employee_education",
+   "fieldtype": "Data",
+   "label": "Count Employee Education",
+   "read_only": 1
   }
  ],
  "image_field": "image",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-01-30 20:02:37.736138",
+ "modified": "2023-01-30 20:16:09.482264",
  "modified_by": "Administrator",
  "module": "Human Resource",
  "name": "Employee",
