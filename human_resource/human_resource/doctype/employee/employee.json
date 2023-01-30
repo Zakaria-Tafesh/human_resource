@@ -97,7 +97,7 @@
    "fieldname": "education",
    "fieldtype": "Table",
    "label": "Education",
-   "options": "Education"
+   "options": "Employee Education"
   },
   {
    "fieldname": "cv",
@@ -120,7 +120,7 @@
  "image_field": "image",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-01-30 20:16:09.482264",
+ "modified": "2023-01-30 23:22:35.162061",
  "modified_by": "Administrator",
  "module": "Human Resource",
  "name": "Employee",

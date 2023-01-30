@@ -37,7 +37,7 @@
  "modified": "2023-01-30 19:18:12.462301",
  "modified_by": "Administrator",
  "module": "Human Resource",
- "name": "Education",
+ "name": "Employee Education",
  "owner": "Administrator",
  "permissions": [],
  "sort_field": "modified",
