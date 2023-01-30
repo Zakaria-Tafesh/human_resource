@@ -1,47 +1,30 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "field:employee_full_name",
+ "autoname": "format:{first_name}-{###}",
  "creation": "2023-01-28 12:54:00.303773",
  "default_view": "List",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "employee_first_name",
-  "employee_last_name",
-  "employee_full_name",
+  "first_name",
+  "mid_name",
+  "last_name",
+  "full_name",
   "image",
   "status",
   "employee_number",
-  "employee_date_of_birth",
-  "employee_date_of_joining",
-  "employee_mobile",
-  "employee_department",
-  "employee_education"
+  "date_of_birth",
+  "age",
+  "date_of_joining",
+  "mobile",
+  "department",
+  "education",
+  "cv",
+  "cv_valuation"
  ],
  "fields": [
-  {
-   "fieldname": "employee_first_name",
-   "fieldtype": "Data",
-   "label": "Employee First Name"
-  },
-  {
-   "fieldname": "employee_last_name",
-   "fieldtype": "Data",
-   "label": "Employee Last Name"
-  },
-  {
-   "fieldname": "employee_full_name",
-   "fieldtype": "Data",
-   "label": "Employee Full Name",
-   "unique": 1
-  },
-  {
-   "fieldname": "image",
-   "fieldtype": "Image",
-   "label": "Image"
-  },
   {
    "fieldname": "status",
    "fieldtype": "Select",
@@ -54,40 +37,87 @@
    "label": "Employee Number"
   },
   {
-   "fieldname": "employee_date_of_birth",
-   "fieldtype": "Date",
-   "label": "Employee Date of Birth"
+   "fieldname": "age",
+   "fieldtype": "Int",
+   "label": "Age"
   },
   {
-   "fieldname": "employee_date_of_joining",
-   "fieldtype": "Date",
-   "label": "Employee Date of Joining"
+   "fieldname": "image",
+   "fieldtype": "Attach Image",
+   "label": "Image"
   },
   {
-   "fieldname": "employee_mobile",
+   "fieldname": "first_name",
    "fieldtype": "Data",
-   "label": "Employee Mobile"
+   "in_list_view": 1,
+   "label": "First Name",
+   "reqd": 1,
+   "unique": 1
   },
   {
-   "fieldname": "employee_department",
+   "fieldname": "mid_name",
+   "fieldtype": "Data",
+   "label": "Mid Name"
+  },
+  {
+   "fieldname": "last_name",
+   "fieldtype": "Data",
+   "label": "Last Name"
+  },
+  {
+   "fieldname": "full_name",
+   "fieldtype": "Data",
+   "label": "Full Name",
+   "read_only": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "date_of_birth",
+   "fieldtype": "Date",
+   "label": "Date of Birth"
+  },
+  {
+   "fieldname": "date_of_joining",
+   "fieldtype": "Date",
+   "label": "Date of Joining"
+  },
+  {
+   "fieldname": "mobile",
+   "fieldtype": "Data",
+   "label": "Mobile"
+  },
+  {
+   "fieldname": "department",
    "fieldtype": "Link",
-   "label": "Employee Department",
+   "label": "Department",
    "options": "Department"
   },
   {
-   "fieldname": "employee_education",
+   "fieldname": "education",
    "fieldtype": "Table",
-   "label": "Employee Education",
-   "options": "Employee Education"
+   "label": "Education",
+   "options": "Education"
+  },
+  {
+   "fieldname": "cv",
+   "fieldtype": "Small Text",
+   "label": "CV"
+  },
+  {
+   "fieldname": "cv_valuation",
+   "fieldtype": "Data",
+   "label": "CV Valuation",
+   "read_only": 1
   }
  ],
+ "image_field": "image",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-01-28 12:54:29.937043",
+ "modified": "2023-01-30 20:02:37.736138",
  "modified_by": "Administrator",
  "module": "Human Resource",
  "name": "Employee",
- "naming_rule": "Expression (old style)",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {
@@ -106,5 +136,5 @@
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],
- "title_field": "employee_full_name"
+ "title_field": "first_name"
 }

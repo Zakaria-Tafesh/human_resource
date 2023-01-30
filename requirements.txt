@@ -1,1 +1,4 @@
 # frappe -- https://github.com/frappe/frappe is installed via 'bench init'
+setuptools~=59.6.0
+frappe~=15.0.0.dev0
+python-dateutil~=2.8.2

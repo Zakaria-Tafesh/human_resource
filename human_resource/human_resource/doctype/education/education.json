@@ -6,38 +6,38 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "employee_schooluniversity",
-  "employee_qualification",
-  "employee_level"
+  "school_university",
+  "qualification",
+  "level"
  ],
  "fields": [
   {
-   "fieldname": "employee_schooluniversity",
+   "fieldname": "school_university",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Employee School/University"
+   "label": "School/University"
   },
   {
-   "fieldname": "employee_qualification",
+   "fieldname": "qualification",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Employee Qualification"
+   "label": "Qualification"
   },
   {
-   "fieldname": "employee_level",
+   "fieldname": "level",
    "fieldtype": "Select",
    "in_list_view": 1,
-   "label": "Employee level",
+   "label": "level",
    "options": "Graduate\nUnder Graduate"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-01-28 13:01:13.459101",
+ "modified": "2023-01-30 19:18:12.462301",
  "modified_by": "Administrator",
  "module": "Human Resource",
- "name": "Employee Education",
+ "name": "Education",
  "owner": "Administrator",
  "permissions": [],
  "sort_field": "modified",
