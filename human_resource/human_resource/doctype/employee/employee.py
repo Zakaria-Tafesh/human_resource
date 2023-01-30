@@ -55,6 +55,7 @@ class Employee(Document):
 
 	def validate_age_active(self):
 		emp_age = self.get_age()
+		self.age = emp_age
 		status = self.status.lower()
 
 		if emp_age >= self.MAX_AGE and status == 'active':
