@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "format:{employee_name}",
+ "autoname": "format:{employee_name}_{##}",
  "creation": "2023-01-30 22:58:08.683474",
  "default_view": "List",
  "doctype": "DocType",
@@ -62,7 +62,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-01-30 23:02:11.556636",
+ "modified": "2023-02-01 20:03:13.274484",
  "modified_by": "Administrator",
  "module": "Human Resource",
  "name": "Leave Allocation",

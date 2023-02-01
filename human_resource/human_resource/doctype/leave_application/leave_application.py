@@ -21,7 +21,10 @@ class LeaveApplication(Document):
 		self.check_leave_balance()
 
 	def on_submit(self):
-		self.update_leave_balance()
+		self.update_leave_balance_decrease()
+
+	def on_cancel(self):
+		self.update_leave_balance_increase()
 
 	def set_total_leave_days(self):
 		if self.from_date and self.to_date:
@@ -33,16 +36,23 @@ class LeaveApplication(Document):
 
 			self.total_leave_days = diff_days
 
-	def update_leave_balance(self):
+	def update_leave_balance_decrease(self):
+		allocation_doc = self.get_same_leave_allocation_doc()
+		allocation_doc.total_leaves_allocated -= self.total_leave_days
+		allocation_doc.save()
+
+	def update_leave_balance_increase(self):
+		allocation_doc = self.get_same_leave_allocation_doc()
+		allocation_doc.total_leaves_allocated += self.total_leave_days
+		allocation_doc.save()
+
+	def get_same_leave_allocation_doc(self):
 		allocation_doc = frappe.get_last_doc('Leave Allocation', filters={'employee': self.employee,
 						'from_date': ['<=', self.from_date],
 						'to_date': ['>=', self.to_date],
 						'leave_type': self.leave_type
 						})
-
-		allocation_doc.total_leaves_allocated -= self.total_leave_days
-		allocation_doc.save()
-
+		return allocation_doc
 	def validate_dates(self):
 		if self.from_date and self.to_date and (getdate(self.to_date) < getdate(self.from_date)):
 			frappe.throw("To date cannot be before from date")
