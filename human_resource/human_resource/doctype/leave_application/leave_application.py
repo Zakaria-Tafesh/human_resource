@@ -16,10 +16,22 @@ class LeaveApplication(Document):
 
 	def validate(self):
 		self.validate_dates()
-		self.validate_balance_leaves()
+		self.set_total_leave_days()
+		self.set_leave_balance_before_application()
+		self.check_leave_balance()
 
 	def on_submit(self):
 		self.update_leave_balance()
+
+	def set_total_leave_days(self):
+		if self.from_date and self.to_date:
+			from_date = getdate(self.from_date)
+			to_date = getdate(self.to_date)
+			diff_days = date_diff(to_date, from_date) + 1
+			if self.total_leave_days <= 0:
+				frappe.throw(f'(To Date) Should be Greater than (From Date),diff_days = {diff_days} !!! ')
+
+			self.total_leave_days = diff_days
 
 	def update_leave_balance(self):
 		allocation_doc = frappe.get_last_doc('Leave Allocation', filters={'employee': self.employee,
@@ -35,22 +47,17 @@ class LeaveApplication(Document):
 		if self.from_date and self.to_date and (getdate(self.to_date) < getdate(self.from_date)):
 			frappe.throw("To date cannot be before from date")
 
-	def validate_balance_leaves(self):
+	def set_leave_balance_before_application(self):
 		if self.from_date and self.to_date:
-			from_date = getdate(self.from_date)
-			to_date = getdate(self.to_date)
-			diff_days = date_diff(to_date, from_date) + 1
-			self.total_leave_days = diff_days
-			if self.total_leave_days <= 0:
-				frappe.throw(f'(To Date) Should be Greater than (From Date),diff_days = {diff_days} !!! ')
-
-			allocations = get_leave_allocation_records(self.employee, from_date, to_date, self.leave_type)
+			allocations = get_leave_allocation_records(self.employee, self.from_date, self.to_date, self.leave_type)
 			if not allocations:
 				frappe.throw(f'This Employee does NOT have any leave allocations in this period (for this Leave Type)!')
 
 			allocation = allocations.get(self.leave_type)
-
 			self.leave_balance_before_application = allocation.get('total_leaves_allocated')
+
+	def check_leave_balance(self):
+		if self.total_leave_days and self.leave_balance_before_application:
 			if self.total_leave_days > self.leave_balance_before_application:
 				frappe.throw('You do Not have enough balance')
 
