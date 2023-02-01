@@ -19,7 +19,9 @@ class LeaveApplication(Document):
 		self.validate_balance_leaves()
 
 	def on_submit(self):
+		self.update_leave_balance()
 
+	def update_leave_balance(self):
 		allocation_doc = frappe.get_last_doc('Leave Allocation', filters={'employee': self.employee,
 						'from_date': ['<=', self.from_date],
 						'to_date': ['>=', self.to_date],
@@ -34,7 +36,6 @@ class LeaveApplication(Document):
 			frappe.throw(_("To date cannot be before from date"))
 
 	def validate_balance_leaves(self):
-
 		if self.from_date and self.to_date:
 			from_date = getdate(self.from_date)
 			to_date = getdate(self.to_date)
@@ -50,7 +51,6 @@ class LeaveApplication(Document):
 			allocation = allocations.get(self.leave_type)
 
 			self.leave_balance_before_application = allocation.get('total_leaves_allocated')
-
 			if self.total_leave_days > self.leave_balance_before_application:
 				frappe.throw('You do Not have enough balance')
 
