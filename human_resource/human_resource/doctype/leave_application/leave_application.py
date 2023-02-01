@@ -33,13 +33,13 @@ class LeaveApplication(Document):
 
 	def validate_dates(self):
 		if self.from_date and self.to_date and (getdate(self.to_date) < getdate(self.from_date)):
-			frappe.throw(_("To date cannot be before from date"))
+			frappe.throw("To date cannot be before from date")
 
 	def validate_balance_leaves(self):
 		if self.from_date and self.to_date:
 			from_date = getdate(self.from_date)
 			to_date = getdate(self.to_date)
-			diff_days = date_diff(to_date, from_date)
+			diff_days = date_diff(to_date, from_date) + 1
 			self.total_leave_days = diff_days
 			if self.total_leave_days <= 0:
 				frappe.throw(f'(To Date) Should be Greater than (From Date),diff_days = {diff_days} !!! ')
