@@ -19,7 +19,8 @@
   "total_leave_days",
   "alternative_employee",
   "alternative_employee_name",
-  "reason"
+  "reason",
+  "amended_from"
  ],
  "fields": [
   {
@@ -38,8 +39,10 @@
   {
    "fieldname": "leave_type",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Leave Type",
-   "options": "Leave Type"
+   "options": "Leave Type",
+   "reqd": 1
   },
   {
    "fetch_from": "employee.department",
@@ -59,7 +62,8 @@
   {
    "fieldname": "leave_balance_before_application",
    "fieldtype": "Float",
-   "label": "Leave Balance Before Application"
+   "label": "Leave Balance Before Application",
+   "read_only": 1
   },
   {
    "fieldname": "from_date",
@@ -74,7 +78,8 @@
   {
    "fieldname": "total_leave_days",
    "fieldtype": "Float",
-   "label": "Total Leave Days"
+   "label": "Total Leave Days",
+   "read_only": 1
   },
   {
    "fieldname": "alternative_employee",
@@ -93,11 +98,21 @@
    "fieldtype": "Data",
    "label": "Alternative Employee Name",
    "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Leave Application",
+   "print_hide": 1,
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
+ "is_submittable": 1,
  "links": [],
- "modified": "2023-01-30 23:02:32.609714",
+ "modified": "2023-02-01 04:14:14.397596",
  "modified_by": "Administrator",
  "module": "Human Resource",
  "name": "Leave Application",
