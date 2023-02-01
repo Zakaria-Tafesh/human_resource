@@ -22,10 +22,10 @@ class LeaveApplication(Document):
 
 	def on_submit(self):
 		allocation_doc = frappe.get_last_doc('Leave Allocation', filters={'employee': self.employee,
-																		'from_date': ['<=', self.from_date],
-																		'to_date': ['>=', self.to_date],
-																		'leave_type': self.leave_type
-																		})
+						'from_date': ['<=', self.from_date],
+						'to_date': ['>=', self.to_date],
+						'leave_type': self.leave_type
+						})
 
 		allocation_doc.total_leaves_allocated -= self.total_leave_days
 		allocation_doc.save()
@@ -66,7 +66,6 @@ class LeaveApplication(Document):
 				)
 
 			allocation = allocations.get(self.leave_type)
-			print(allocation)
 
 			self.leave_balance_before_application = allocation.get('total_leaves_allocated')
 
@@ -116,7 +115,5 @@ def get_leave_allocation_records(employee, from_date, to_date, leave_type=None):
 				}
 			),
 		)
-	print('allocated_leaves')
-	print(allocated_leaves)
 
 	return allocated_leaves
