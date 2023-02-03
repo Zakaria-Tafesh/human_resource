@@ -92,8 +92,8 @@ class LeaveApplication(Document):
 			if not allocations:
 				frappe.throw(f'This Employee does NOT have any leave allocations in this period (for this Leave Type)!')
 
-			allocation = allocations.get(self.leave_type)
-			self.leave_balance_before_application = allocation.get('total_leaves_allocated')
+			# allocation = allocations.get(self.leave_type)
+			self.leave_balance_before_application = allocations.get('total_leaves_allocated')
 
 	def check_leave_balance(self):
 		allow_negative_balance = self.get_allow_negative_balance()
@@ -112,6 +112,12 @@ class LeaveApplication(Document):
 		return applicable_after
 
 
+@frappe.whitelist()
+def test_test(arg2):
+	return int(arg2) + 20
+
+
+@frappe.whitelist()
 def get_leave_allocation_records(employee, from_date, to_date, leave_type=None):
 	"""Returns the total allocated leaves"""
 	allocation_doc = frappe.qb.DocType("Leave Allocation")
@@ -139,16 +145,23 @@ def get_leave_allocation_records(employee, from_date, to_date, leave_type=None):
 
 	allocated_leaves = frappe._dict()
 	for d in allocation_details:
-		allocated_leaves.setdefault(
-			d.leave_type,
-			frappe._dict(
-				{
+		allocated_leaves = {
 					"from_date": d.from_date,
 					"to_date": d.to_date,
 					"leave_type": d.leave_type,
 					"total_leaves_allocated": d.total_leaves_allocated,
 				}
-			),
-		)
 
 	return allocated_leaves
+
+
+@frappe.whitelist()
+def get_total_leave_days(from_date, to_date):
+	from_date = getdate(from_date)
+	to_date = getdate(to_date)
+	diff_days = date_diff(to_date, from_date) + 1
+
+	if diff_days <= 0:
+		frappe.throw(f'(To Date) Should be Greater than (From Date),diff_days = {diff_days} !!! ')
+
+	return diff_days
