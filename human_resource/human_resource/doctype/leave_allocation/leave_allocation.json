@@ -62,7 +62,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-02-01 20:03:13.274484",
+ "modified": "2023-02-02 16:01:24.557164",
  "modified_by": "Administrator",
  "module": "Human Resource",
  "name": "Leave Allocation",
@@ -84,6 +84,5 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": [],
- "title_field": "employee_name"
+ "states": []
 }
