@@ -2,7 +2,6 @@
 # For license information, please see license.txt
 from datetime import datetime # from python std library
 import frappe
-from frappe import _
 from frappe.query_builder.functions import Max, Min
 from frappe.utils import (
 	date_diff,
@@ -111,6 +110,7 @@ class LeaveApplication(Document):
 	def get_applicable_after(self):
 		applicable_after = frappe.get_value('Leave Type', self.leave_type, 'applicable_after')
 		return applicable_after
+
 
 def get_leave_allocation_records(employee, from_date, to_date, leave_type=None):
 	"""Returns the total allocated leaves"""
