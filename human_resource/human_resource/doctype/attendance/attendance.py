@@ -11,6 +11,14 @@ class Attendance(Document):
 	def on_submit(self):
 		self.check_both_checks()
 		self.set_work_late_hours()
+		self.update_status()
+
+	def update_status(self):
+		att_settings = get_attendance_settings()
+		threshold_absent = att_settings.working_hours_threshold_for_absent
+		if threshold_absent:
+			if self.work_hours <= threshold_absent:
+				self.status = 'Absent'
 
 	def set_work_late_hours(self):
 
