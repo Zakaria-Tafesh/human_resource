@@ -4,9 +4,11 @@ from datetime import datetime
 
 import frappe
 from frappe.model.document import Document
+from frappe.utils import time_diff_in_hours
 
 
 class Attendance(Document):
+
 
 	def on_submit(self):
 		self.check_both_checks()
@@ -28,9 +30,9 @@ class Attendance(Document):
 		late_entry = att_settings.late_entry_grace_period
 		early_exit = att_settings.early_exit_grace_period
 
-		work_hours = time_diff(self.check_out, self.check_in)
-		user_late_entry = time_diff(self.check_in, start_time)
-		user_early_exit = time_diff(end_time, self.check_out)
+		work_hours = time_diff_in_hours(self.check_out, self.check_in)
+		user_late_entry = time_diff_in_hours(self.check_in, start_time)
+		user_early_exit = time_diff_in_hours(end_time, self.check_out)
 		user_late_hours = user_late_entry + user_early_exit
 
 		hours_out = self.get_hours_out()
@@ -66,8 +68,8 @@ class Attendance(Document):
 		start_time = att_settings.start_time
 		end_time = att_settings.end_time
 		hours_out = 0
-		hours_out_before = time_diff(start_time, self.check_in)
-		hours_out_after = time_diff(self.check_out, end_time)
+		hours_out_before = time_diff_in_hours(start_time, self.check_in)
+		hours_out_after = time_diff_in_hours(self.check_out, end_time)
 		if hours_out_before > 0:
 			hours_out += hours_out_before
 		if hours_out_after > 0 :
@@ -79,7 +81,7 @@ class Attendance(Document):
 		if not (self.check_in and self.check_out):
 			frappe.throw("You have to choose (check_in) and (check_out)")
 
-		diff_checks = time_diff(self.check_out, self.check_in)
+		diff_checks = time_diff_in_hours(self.check_out, self.check_in)
 		if diff_checks <= 0:
 			frappe.throw("(check_in) Can NOT be After (check_out)")
 
@@ -106,10 +108,38 @@ def convert_to_datetime(my_str):
 
 def get_attendance_settings():
 	att_settings = frappe.get_doc('Attendance Settings')
-	# start_time = att_settings.start_time
-	# end_time = att_settings.end_time
-	# threshold = att_settings.working_hours_threshold_for_absent
-	# late_entry = att_settings.late_entry_grace_period
-	# early_exit = att_settings.early_exit_grace_period
-	# att_dict = {'start_time': start_time}
 	return att_settings
+
+########################################################################################################################
+# token 10e98ac9063722c:8ad636d248e886b
+#
+
+
+@frappe.whitelist()
+def create_attendance(attendance_date, check_in, check_out):
+	employee = frappe.db.exists("Employee", {"user": frappe.session.user})
+	if not employee:
+		prepare_response(404, "faild", "User not Linked to Employee")
+		return
+
+	att = frappe.new_doc("Attendance")
+	att.attendance_date = attendance_date
+	att.check_in = check_in
+	att.check_out = check_out
+	att.employee = employee
+	att.insert(ignore_permissions=True)
+	att.reload()
+	frappe.db.commit()
+	return att
+
+
+def prepare_response(status_code, _type, message, data=None):
+	if data is None:
+		data = dict()
+
+	frappe.local.response["http_status_code"] = status_code
+	frappe.local.response["api_status"] = {
+		"type": _type,
+		"message": message,
+	}
+	frappe.local.response["data"] = data
